@@ -59,6 +59,9 @@ public class DatabaseConnector {
      */
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName(config.getDriver());
+        if (config.getSchema() != null && !config.getUrl().endsWith(config.getSchema())) {
+            config.setUrl(config.getUrl() + "/" + config.getSchema());
+        }
         return DriverManager.getConnection(config.getUrl(), config.getUserName(), config.getPassword());
     }
 
