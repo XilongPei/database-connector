@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class DatabaseConnector {
 
+    private static final String[] TABLE_TYPE = {"TABLE"};
+
     private ConnectionConfig config;
 
     private List<TableInfo> tableInfoContainer;
@@ -70,7 +72,7 @@ public class DatabaseConnector {
         Connection con = getConnection();
         DatabaseMetaData metaDate = con.getMetaData();
         //1.得到数据库下所有数据表
-        ResultSet rs = metaDate.getTables(config.getSchema(), null, null, null);
+        ResultSet rs = metaDate.getTables(null, config.getSchema(), "%", TABLE_TYPE);
 
         if (tableInfoContainer == null) {
             tableInfoContainer = new ArrayList<TableInfo>();
