@@ -1,5 +1,7 @@
 package com.github.liaochong.database.connector;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -28,6 +30,22 @@ public class DatabaseConnector {
         DatabaseConnector connector = new DatabaseConnector();
         connector.config = config;
         return connector;
+    }
+
+    /**
+     * 获取表信息
+     *
+     * @return List<TableInfo>
+     */
+    public List<TableInfo> getTableInfo() {
+        try {
+            this.setAllTableInfo();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tableInfoContainer;
     }
 
     /**
@@ -95,16 +113,6 @@ public class DatabaseConnector {
             tableInfo.getFieldInfos().add(fieldInfo);
         }
         tableInfoContainer.add(tableInfo);
-    }
-
-
-    /**
-     * 获取表信息
-     *
-     * @return List<TableInfo>
-     */
-    public List<TableInfo> getTableInfo() {
-        return tableInfoContainer;
     }
 
 }
