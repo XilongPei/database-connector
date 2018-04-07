@@ -27,11 +27,7 @@ public class ConnectionConfig {
      */
     String password;
     /**
-     * 数据库驱动
-     */
-    String driver;
-    /**
-     * 选择表
+     * 选择表，如为null则获取全部
      */
     List<String> tables;
 }

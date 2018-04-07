@@ -43,9 +43,9 @@ public class DatabaseConnector {
         try {
             this.setAllTableInfo();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return tableInfoContainer;
     }
@@ -58,9 +58,17 @@ public class DatabaseConnector {
      * @throws SQLException           SQLException
      */
     private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(config.getDriver());
+        try {
+            Class.forName(DatabaseDriver.MYSQL5.getDriver());
+        } catch (ClassNotFoundException e) {
+            Class.forName(DatabaseDriver.MYSQL6.getDriver());
+        }
+
+        if (!config.getUrl().endsWith("/")) {
+            config.setUrl(config.getUrl() + "/");
+        }
         if (config.getSchema() != null && !config.getUrl().endsWith(config.getSchema())) {
-            config.setUrl(config.getUrl() + "/" + config.getSchema());
+            config.setUrl(config.getUrl() + config.getSchema());
         }
         return DriverManager.getConnection(config.getUrl(), config.getUserName(), config.getPassword());
     }
@@ -76,7 +84,7 @@ public class DatabaseConnector {
         DatabaseMetaData metaDate = con.getMetaData();
         // 得到数据库下所有数据表
         ResultSet rs;
-        if (config.getDriver().contains(MYSQL)) {
+        if (config.getUrl().contains(MYSQL)) {
             rs = metaDate.getTables(config.getSchema(), null, "%", TABLE_TYPE);
         } else {
             rs = metaDate.getTables(null, config.getSchema(), "%", TABLE_TYPE);
@@ -126,6 +134,23 @@ public class DatabaseConnector {
             tableInfo.getFieldInfos().add(fieldInfo);
         }
         tableInfoContainer.add(tableInfo);
+    }
+
+    enum DatabaseDriver {
+
+        MYSQL5("com.mysql.jdbc.Driver"),
+
+        MYSQL6("com.mysql.cj.jdbc.Driver");
+
+        private String driver;
+
+        DatabaseDriver(String driver) {
+            this.driver = driver;
+        }
+
+        public String getDriver() {
+            return driver;
+        }
     }
 
 }

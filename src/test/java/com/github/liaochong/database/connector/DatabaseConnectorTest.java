@@ -13,10 +13,9 @@ public class DatabaseConnectorTest {
     @Test
     public void getTableInfoTest() {
         ConnectionConfig connectionConfig = new ConnectionConfig();
-        connectionConfig.setUrl("jdbc:mysql://localhost:3306/manage");
+        connectionConfig.setUrl("jdbc:mysql://localhost:3306/");
         connectionConfig.setUserName("root");
         connectionConfig.setPassword("123456");
-        connectionConfig.setDriver("com.mysql.jdbc.Driver");
         connectionConfig.setSchema("manage");
 
         List<TableInfo> tb = DatabaseConnector.getConnector(connectionConfig).getTableInfo();
