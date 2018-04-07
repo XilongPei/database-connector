@@ -136,7 +136,7 @@ public class DatabaseConnector {
         tableInfoContainer.add(tableInfo);
     }
 
-    enum DatabaseDriver {
+    private enum DatabaseDriver {
 
         MYSQL5("com.mysql.jdbc.Driver"),
 
