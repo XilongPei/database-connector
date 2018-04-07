@@ -2,6 +2,8 @@ package com.github.liaochong.database.connector;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author liaochong
  * @version 1.0
@@ -12,6 +14,10 @@ public class ConnectionConfig {
      * 数据库url
      */
     String url;
+    /**
+     * 数据库
+     */
+    String schema;
     /**
      * 数据库用户名
      */
@@ -25,11 +31,7 @@ public class ConnectionConfig {
      */
     String driver;
     /**
-     * 数据库
-     */
-    String schema;
-    /**
      * 选择表
      */
-    String[] tables;
+    List<String> tables;
 }

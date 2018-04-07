@@ -1,7 +1,5 @@
 package com.github.liaochong.database.connector;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -19,6 +17,8 @@ import java.util.List;
 public class DatabaseConnector {
 
     private static final String[] TABLE_TYPE = {"TABLE"};
+
+    private static final String MYSQL = "mysql";
 
     private ConnectionConfig config;
 
@@ -76,7 +76,7 @@ public class DatabaseConnector {
         DatabaseMetaData metaDate = con.getMetaData();
         // 得到数据库下所有数据表
         ResultSet rs;
-        if (config.getDriver().contains("mysql")) {
+        if (config.getDriver().contains(MYSQL)) {
             rs = metaDate.getTables(config.getSchema(), null, "%", TABLE_TYPE);
         } else {
             rs = metaDate.getTables(null, config.getSchema(), "%", TABLE_TYPE);
@@ -100,6 +100,9 @@ public class DatabaseConnector {
      */
     private void getTableInfo(Connection con, ResultSet rs) throws SQLException {
         String tableName = rs.getString(3);
+        if (config.getTables() != null && !config.getTables().contains(tableName)) {
+            return;
+        }
         String sql = "SELECT  *  FROM " + tableName + " WHERE 1=2;";
         PreparedStatement prep = con.prepareStatement(sql);
         ResultSet set = prep.executeQuery(sql);
