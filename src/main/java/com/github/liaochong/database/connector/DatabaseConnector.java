@@ -42,12 +42,10 @@ public class DatabaseConnector {
     public List<TableInfo> getTableInfo() {
         try {
             this.setAllTableInfo();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+            return tableInfoContainer;
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return tableInfoContainer;
     }
 
     /**
@@ -91,7 +89,7 @@ public class DatabaseConnector {
         }
 
         if (tableInfoContainer == null) {
-            tableInfoContainer = new ArrayList<TableInfo>();
+            tableInfoContainer = new ArrayList<>();
         }
         tableInfoContainer.clear();
         while (rs.next()) {
