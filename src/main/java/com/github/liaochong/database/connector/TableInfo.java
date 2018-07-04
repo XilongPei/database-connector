@@ -1,6 +1,8 @@
 package com.github.liaochong.database.connector;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
  * @version 1.0
  */
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TableInfo {
 
     String tableName;

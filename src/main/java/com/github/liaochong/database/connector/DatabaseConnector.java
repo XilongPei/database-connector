@@ -136,8 +136,14 @@ public class DatabaseConnector {
 
     private enum DatabaseDriver {
 
+        /**
+         * mysql5 驱动名称
+         */
         MYSQL5("com.mysql.jdbc.Driver"),
 
+        /**
+         * mysql6 驱动名称
+         */
         MYSQL6("com.mysql.cj.jdbc.Driver");
 
         private String driver;

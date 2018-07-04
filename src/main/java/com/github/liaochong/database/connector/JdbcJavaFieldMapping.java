@@ -5,12 +5,21 @@ package com.github.liaochong.database.connector;
  * @version 1.0
  */
 public enum JdbcJavaFieldMapping {
+    /**
+     * int
+     */
     INT("INT", "java.lang.Long", "Long", false),
-
+    /**
+     * int unsigned
+     */
     INT_UNSIGNED("INT UNSIGNED", "java.lang.Long", "Long", false),
-
+    /**
+     * varchar
+     */
     STRING("VARCHAR", "java.lang.String", "String", false),
-
+    /**
+     * datetime
+     */
     DATE("DATETIME", "java.time.LocalDateTime", "LocalDateTime", true);
 
     private String jdbcType;
