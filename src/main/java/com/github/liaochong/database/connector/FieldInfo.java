@@ -22,4 +22,6 @@ public class FieldInfo {
     boolean isNullable;
 
     boolean isCurrency;
+
+    JdbcJavaFieldMapping jdbcJavaFieldMapping;
 }

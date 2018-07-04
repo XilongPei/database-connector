@@ -128,6 +128,7 @@ public class DatabaseConnector {
             fieldInfo.setNullable(data.isNullable(i) == 1);
             fieldInfo.setCurrency(data.isCurrency(i));
             fieldInfo.setAutoIncrement(data.isAutoIncrement(i));
+            fieldInfo.setJdbcJavaFieldMapping(JdbcJavaFieldMapping.get(fieldInfo.getTypeName()));
 
             tableInfo.getFieldInfos().add(fieldInfo);
         }
