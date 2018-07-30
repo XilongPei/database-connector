@@ -62,9 +62,6 @@ public class DatabaseConnector {
             Class.forName(DatabaseDriver.MYSQL6.getDriver());
         }
 
-        if (!config.getUrl().endsWith("/")) {
-            config.setUrl(config.getUrl() + "/");
-        }
         if (config.getSchema() != null && !config.getUrl().endsWith(config.getSchema())) {
             config.setUrl(config.getUrl() + config.getSchema());
         }
